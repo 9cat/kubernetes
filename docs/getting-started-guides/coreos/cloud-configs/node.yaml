@@ -9,6 +9,11 @@ write-files:
         --silent --head --fail \
         http://${1}:${2}; do sleep 1 && echo -n .; done;
       exit $?
+  - path: /etc/systemd/resolved.conf.d/skydns.conf
+    owner: root
+    content: |
+      [Resolve]
+      DNS=10.100.0.100
 coreos:
   etcd2:
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
@@ -96,7 +101,9 @@ coreos:
         --allow_privileged=true \
         --logtostderr=true \
         --healthz_bind_address=0.0.0.0 \
-        --healthz_port=10248
+        --healthz_port=10248 \
+        --cluster_dns=10.100.0.100 \
+        --cluster_domain=kubernetes.local \
         Restart=always
         RestartSec=10
   update:

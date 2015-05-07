@@ -2,6 +2,12 @@
 
 ---
 hostname: master
+write_files:
+  - path: /etc/systemd/resolved.conf.d/skydns.conf
+    owner: root
+    content: |
+      [Resolve]
+      DNS=10.100.0.100
 coreos:
   etcd2:
     name: master
