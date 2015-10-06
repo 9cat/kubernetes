@@ -121,7 +121,7 @@ Once inside, we need to install the selenium library
 pip install selenium
 ```
 
-We're all set up, start the python interpreter and copy and paste the contents of selenium-test.py
+We're all set up, start the python interpreter.
 ```
 python
 ```
