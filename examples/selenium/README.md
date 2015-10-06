@@ -105,6 +105,7 @@ Once the pods start, you will see them show up in the Selenium Hub interface.
 ### Run a Selenium Job
 Let's run a quick Selenium job to validate our setup.
 
+#### Setup Python Environment
 First, we need to start a python container that we can attach to.
 ```
 kubectl run selenium-python --image=google/python-hello
@@ -121,6 +122,7 @@ Once inside, we need to install the selenium library
 pip install selenium
 ```
 
+#### Run Selenium Job with Python
 We're all set up, start the python interpreter.
 ```
 python
