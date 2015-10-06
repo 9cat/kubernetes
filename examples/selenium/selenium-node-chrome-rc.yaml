@@ -5,7 +5,7 @@ metadata:
   labels:
     name: selenium-node-chrome
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     name: selenium-node-chrome
   template:
