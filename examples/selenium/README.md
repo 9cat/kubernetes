@@ -177,3 +177,16 @@ Then connect to localhost:9000 with your VNC client using the password "secret"
 Enjoy your scalable Selenium Grid!
 
 Adapted from: https://github.com/SeleniumHQ/docker-selenium
+
+### Teardown
+
+To remove all created resources, run the following:
+
+```
+kubectl delete rc selenium-hub
+kubectl delete rc selenium-node-chrome
+kubectl delete rc selenium-node-firefox
+kubectl delete rc selenium-python
+kubectl delete svc selenium-hub
+kubectl delete svc selenium-hub-external
+```
