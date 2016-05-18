@@ -44,6 +44,9 @@ base:
 {% endif %}
     - logrotate
     - supervisor
+{% if grains.get('enable_dhcp_cron') == true %}
+    - dhcp-cron
+{% endif %}
 
   'roles:kubernetes-master':
     - match: grain
