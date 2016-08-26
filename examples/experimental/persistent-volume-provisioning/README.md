@@ -240,9 +240,10 @@ Now modify `examples/experimental/persistent-volume-provisioning/rbd/rbd-storage
 $ kubectl create -f examples/experimental/persistent-volume-provisioning/rbd/rbd-storage-class.yaml
 ```
 
-The kube-controller-manager is now able to provision storage, however we still need to be able to mount it. Mounting should be done with a non-privileged key, if you have existing users you can get all keys by running `ceph auth list` on your Ceph cluster with the admin key. For this example we will create a new user:
+The kube-controller-manager is now able to provision storage, however we still need to be able to map it. Mapping should be done with a non-privileged key, if you have existing users you can get all keys by running `ceph auth list` on your Ceph cluster with the admin key. For this example we will create a new user and pool.
 
 ```
+$ ceph osd pool create kube 512
 $ ceph auth get-or-create client.kube mon 'allow r' osd 'allow rwx pool=kube'
 [client.kube]
 	key = AQBQyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy==
@@ -296,7 +297,8 @@ $ kubectl create -f examples/experimental/persistent-volume-provisioning/rbd/pod
 ```
 Now our pod has an RBD mount!
 ```
-$ kubectl exec -it server-fzawv -- df -h | grep rbd
+$ export PODNAME=`kubectl get pod --selector='role=server' --namespace=myns --output=template --template="{{with index .items 0}}{{.metadata.name}}{{end}}"`
+$ kubectl exec -it $PODNAME --namespace=myns -- df -h | grep rbd
 /dev/rbd1       2.9G  4.5M  2.8G   1% /var/lib/www/html
 ```
 
